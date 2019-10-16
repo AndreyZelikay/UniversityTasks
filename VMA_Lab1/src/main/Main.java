@@ -20,6 +20,8 @@ public class Main {
         System.out.println("Max residual rate: " + systemOfEquations.maxResidualRate(xVector));
         System.out.println("Max residual error: " + systemOfEquations.maxResidualError(xVector));
         System.out.println("Determinant: " + systemOfEquations.getCoefficientMatrix().getDeterminant());
+        System.out.println("A^(-1): ");
+        matrix.getReverseMatrix().printMatrix();
         System.out.println("A*A^(-1): ");
         matrix.multiply(matrix.getReverseMatrix()).printMatrix();
     }

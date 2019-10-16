@@ -16,6 +16,14 @@ public class SolveEquation {
         for(int j = 0; j < matrix.getSize(); j++){
             bufferMatrix.choiceHighElement();
             determinant *= bufferMatrix.getElements().get(0).get(0)*bufferMatrix.getDeterminant();
+            /*if(bufferMatrix.getElements().get(0).get(0)==0){
+                for(int i = 0;i < bufferMatrix.getSize();i++){
+                    if(bufferMatrix.getElements().get(i).get(bufferMatrix.getSize())!= 0){
+                        System.out.println("System has no solutions!");
+                        System.exit(0);
+                    }
+                }
+            }*/
             bufferMatrix.shareStringByFirstElement(0);
             for(int k = 1; k < bufferMatrix.getSize();k++){
                 bufferMatrix.substractFirstLine(k);
