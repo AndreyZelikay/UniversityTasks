@@ -8,12 +8,8 @@ public class TelephoneNumber {
     private String number;
     private TypeOfTelephoneNumber typeOfTelephoneNumber;
 
-    public TelephoneNumber(String number){
-        try {
-            parseNumber(number);
-        } catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
-        }
+    public TelephoneNumber(String number) throws IllegalArgumentException{
+        parseNumber(number);
     }
 
     private void parseNumber(String number) throws IllegalArgumentException{

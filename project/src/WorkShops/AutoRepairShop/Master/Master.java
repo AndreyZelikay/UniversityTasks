@@ -11,9 +11,13 @@ public class Master {
 
     public Master(String name, String rank, String workExperience, String resume) {
         this.name = name;
-        setRank(rank);
-        setResume(resume);
-        setWorkExperience(workExperience);
+        try {
+        this.rank = (rank!=null) ? Rank.valueOf(rank): null;
+        }  catch (IllegalArgumentException e){
+            System.out.println("No such rank!");
+        }
+        this.workExperience = workExperience;
+        this.resume = resume;
     }
 
     public void setRank(String rank){

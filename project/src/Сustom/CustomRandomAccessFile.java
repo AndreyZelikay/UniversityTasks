@@ -51,7 +51,6 @@ public class CustomRandomAccessFile{
     public void close() throws IOException {
         FileOutputStream fos = new FileOutputStream(new File(nameOfFile));
         fos.write(bytes);
-        System.out.println(new String(bytes, StandardCharsets.UTF_8));
         fos.close();
     }
 }

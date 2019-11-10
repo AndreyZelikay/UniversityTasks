@@ -69,7 +69,11 @@ public class Functions {
         String[] stringNumbers = reader.readLine().split(" ");
         ArrayList<TelephoneNumber> numbers = new ArrayList();
         for(String number: stringNumbers){
-            numbers.add(new TelephoneNumber(number));
+            try {
+                numbers.add(new TelephoneNumber(number));
+            } catch(IllegalArgumentException e){
+                System.out.println("Illegal number: " + number);
+            }
         }
         return numbers;
     }

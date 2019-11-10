@@ -1,8 +1,8 @@
 package WorkShops;
 
 import Address.Address;
-import WorkShops.AutoRepairShop.Master.Master;
 import TelephoneNumber.TelephoneNumber;
+import WorkShops.AutoRepairShop.Master.Master;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,20 +13,17 @@ import static WorkShops.AutoRepairShop.TransformFile.writeToStringEnd;
 
 public abstract class Workshop {
 
-    protected String name;
-    protected ArrayList<TelephoneNumber> telephoneNumbers;
-    protected Address address;
-
+    private String name;
+    private ArrayList<TelephoneNumber> telephoneNumbers;
+    private Address address;
+    protected String file;
+    private Date openingDate;
 
     public Workshop(String name, TelephoneNumber telephoneNumber, Address address) {
         this.telephoneNumbers = new ArrayList<>();
         this.telephoneNumbers.add(telephoneNumber);
         this.address = address;
         this.name = name;
-    }
-
-    public void setMasters(ArrayList<Master> masters) {
-        this.masters = masters;
     }
 
     public void setTelephoneNumbers(ArrayList<TelephoneNumber> telephoneNumbers) {
@@ -37,18 +34,29 @@ public abstract class Workshop {
         if(telephoneNumbers == null){
             telephoneNumbers = new ArrayList<>();
         }
-        telephoneNumbers.add(new TelephoneNumber(number));
-        writeToStringEnd( new TelephoneNumber(number), file, 1);
+        try {
+            telephoneNumbers.add(new TelephoneNumber(number));
+            writeToStringEnd(number, file, 1);
+        } catch (IllegalArgumentException e){
+            System.out.println("Illegal telephone number " + number);
+        }
     }
 
-    public abstract void setOpeningDate(Date date);
+    public void setOpeningDate(Date date) {
+        this.openingDate = date;
+    }
+
+    public abstract void setMasters(ArrayList<Master> masters);
+    public abstract void addMaster(Master master);
 
     @Override
     public String toString(){
         StringBuilder data = new StringBuilder();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yy");
         data.append("Name: ").append(name).append("\n")
+                .append("Address: ").append(address).append("\n")
                 .append("Telephone numbers: ").append(printArrayList(telephoneNumbers)).append("\n")
-                .append()
-    };
+                .append("Opening date: ").append((openingDate!=null) ? dateFormat.format(openingDate) : "Opening date hasn't inputted yet").append("\n");
+        return data.toString();
+    }
 }

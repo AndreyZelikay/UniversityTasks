@@ -6,19 +6,16 @@ import WorkShops.AutoRepairShop.Master.Master;
 import TelephoneNumber.TelephoneNumber;
 import WorkShops.Workshop;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static WorkShops.AutoRepairShop.Functions.parse;
 import static WorkShops.AutoRepairShop.Functions.printArrayList;
 import static WorkShops.AutoRepairShop.TransformFile.writeToStringEnd;
 
-public class AutoRepairShop extends Workshop implements ParsableFromFile {
+public class AutoRepairShop extends Workshop  implements ParsableFromFile{
 
-    private Date openingDate;
     private ArrayList<CarBrand> typeOfRepairingCars;
     private ArrayList<Master> masters;
-    private String file;
 
     public AutoRepairShop(String name, TelephoneNumber telephoneNumber, Address address,String nameOfFile){
         super(name, telephoneNumber, address);
@@ -47,6 +44,7 @@ public class AutoRepairShop extends Workshop implements ParsableFromFile {
         }
     }
 
+    @Override
     public void addMaster(Master master) {
         if(masters == null){
             masters = new ArrayList<>();
@@ -55,23 +53,18 @@ public class AutoRepairShop extends Workshop implements ParsableFromFile {
     }
 
     @Override
-    public void setOpeningDate(Date date) {
-        this.openingDate = date;
+    public void setMasters(ArrayList<Master> masters) {
+        this.masters = masters;
     }
 
     public void setTypeOfRepairingCars(ArrayList<CarBrand> typeOfRepairingCars) {
         this.typeOfRepairingCars = typeOfRepairingCars;
     }
 
-
-
     @Override
     public String toString(){
         StringBuilder data = new StringBuilder();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yy");
-        data.append("Name: ").append(name).append("\n")
-                .append("Telephone numbers: ").append(printArrayList(telephoneNumbers)).append("\n")
-                .append("Opening date: ").append((openingDate!=null) ? dateFormat.format(openingDate) : "Opening date hasn't inputted yet").append("\n")
+        data.append(super.toString())
                 .append("Masters:\n").append(printArrayList(masters)).append("\n")
                 .append("Type of repairing cars:\n").append(printArrayList(typeOfRepairingCars)).append("\n");
         return data.toString();
