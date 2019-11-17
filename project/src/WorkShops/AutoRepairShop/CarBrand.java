@@ -1,6 +1,8 @@
 package WorkShops.AutoRepairShop;
 
-public enum CarBrand {
+import java.io.Serializable;
+
+public enum CarBrand implements Serializable {
     Renault,
     Audi,
     Mercedes,

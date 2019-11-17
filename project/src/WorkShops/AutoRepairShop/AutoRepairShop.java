@@ -6,16 +6,21 @@ import WorkShops.AutoRepairShop.Master.Master;
 import TelephoneNumber.TelephoneNumber;
 import WorkShops.Workshop;
 
+import java.io.Serializable;
 import java.util.*;
 
 import static WorkShops.AutoRepairShop.Functions.parse;
 import static WorkShops.AutoRepairShop.Functions.printArrayList;
 import static WorkShops.AutoRepairShop.TransformFile.writeToStringEnd;
 
-public class AutoRepairShop extends Workshop  implements ParsableFromFile{
+public class AutoRepairShop extends Workshop  implements ParsableFromFile, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private ArrayList<CarBrand> typeOfRepairingCars;
     private ArrayList<Master> masters;
+
+    public AutoRepairShop(){}
 
     public AutoRepairShop(String name, TelephoneNumber telephoneNumber, Address address,String nameOfFile){
         super(name, telephoneNumber, address);

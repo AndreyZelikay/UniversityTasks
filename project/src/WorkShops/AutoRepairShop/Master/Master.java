@@ -1,13 +1,16 @@
 package WorkShops.AutoRepairShop.Master;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Master {
+public class Master implements Serializable {
 
     private String name;
     private Rank rank;
     private String workExperience;
     private String resume;
+
+    public Master(){}
 
     public Master(String name, String rank, String workExperience, String resume) {
         this.name = name;

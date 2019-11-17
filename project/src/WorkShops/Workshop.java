@@ -4,6 +4,7 @@ import Address.Address;
 import TelephoneNumber.TelephoneNumber;
 import WorkShops.AutoRepairShop.Master.Master;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,13 +12,19 @@ import java.util.Date;
 import static WorkShops.AutoRepairShop.Functions.printArrayList;
 import static WorkShops.AutoRepairShop.TransformFile.writeToStringEnd;
 
-public abstract class Workshop {
+public abstract class Workshop implements Serializable {
 
     private String name;
     private ArrayList<TelephoneNumber> telephoneNumbers;
     private Address address;
     protected String file;
     private Date openingDate;
+
+    public String getName() {
+        return name;
+    }
+
+    public Workshop(){}
 
     public Workshop(String name, TelephoneNumber telephoneNumber, Address address) {
         this.telephoneNumbers = new ArrayList<>();

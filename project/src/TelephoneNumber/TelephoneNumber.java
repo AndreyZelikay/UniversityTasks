@@ -1,12 +1,15 @@
 package TelephoneNumber;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TelephoneNumber {
+public class TelephoneNumber implements Serializable {
 
     private String number;
     private TypeOfTelephoneNumber typeOfTelephoneNumber;
+
+    public TelephoneNumber(){}
 
     public TelephoneNumber(String number) throws IllegalArgumentException{
         parseNumber(number);

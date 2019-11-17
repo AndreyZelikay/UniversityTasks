@@ -1,13 +1,16 @@
 package Address;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address {
+public class Address implements Serializable {
 
     private Integer numberOfHouse;
     private Integer housing;
     private String nameOfStreet;
     private Integer numberOfFlat;
+
+    public Address(){}
 
     public Address(String address) {
        parseAddress(address);
