@@ -1,0 +1,65 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+            FileReader fileReader = new FileReader("input.txt");
+            Scanner scanner = new Scanner(fileReader);
+
+            int size = scanner.nextInt();
+
+            int[][] dominoes = new int[size][2];
+
+            for(int i = 0; i < size; i++){
+                dominoes[i][0] = scanner.nextInt();
+                dominoes[i][1] = scanner.nextInt();
+            }
+
+            boolean[] flags = new boolean[size];
+            Arrays.fill(flags, false);
+
+            ArrayList<Integer> passedEdges = new ArrayList<>();
+
+            dfs(0, 0, dominoes, flags, passedEdges);
+
+            FileWriter fileWriter = new FileWriter("output.txt");
+
+            if(passedEdges.size()/2 == size && passedEdges.get(0).equals(passedEdges.get(passedEdges.size() - 1))){
+                fileWriter.write("Yes");
+            } else {
+                fileWriter.write("No");
+            }
+
+            fileWriter.close();
+            fileReader.close();
+        } catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+    private static void dfs(int indexOfPair,int indexOfElement, int[][] dominoes, boolean[] flags, ArrayList<Integer> passedEdges){
+        flags[indexOfPair] = true;
+
+        passedEdges.add(dominoes[indexOfPair][indexOfElement]);
+        passedEdges.add(dominoes[indexOfPair][(indexOfElement == 1) ? 0 : 1]);
+
+        int vertex = passedEdges.get(passedEdges.size() - 1);
+
+        for(int i = 0; i < dominoes.length; i++){
+            if(i!=indexOfElement && equals(dominoes[indexOfPair],dominoes[i])) {
+                flags[i] = true;
+            } else {
+                for (int j = 0; j < 2; j++) {
+                    if (vertex == dominoes[i][j] && !flags[i]) {
+                        dfs(i, j, dominoes, flags, passedEdges);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean equals(int[] first, int[] second){
+        return (first[0] == second[0] && first[1] == second[1]) ||
+                (first[0] == second[1] && first[1] == second[0]);
+    }
+}
