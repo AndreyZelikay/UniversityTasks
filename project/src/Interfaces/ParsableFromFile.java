@@ -1,7 +1,8 @@
 package Interfaces;
 
+import java.io.IOException;
+import java.text.ParseException;
+
 public interface ParsableFromFile {
-    static ParsableFromFile parseFromFile(String nameOfFile){
-       return null;
-    }
+    void parseFromFile(String nameOfFile) throws IOException, ParseException;
 }

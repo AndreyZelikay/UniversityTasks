@@ -1,7 +1,5 @@
 package WorkShops;
 
-import Address.Address;
-import TelephoneNumber.TelephoneNumber;
 import WorkShops.AutoRepairShop.Master.Master;
 
 import java.io.Serializable;
@@ -9,44 +7,46 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static WorkShops.AutoRepairShop.Functions.printArrayList;
-import static WorkShops.AutoRepairShop.TransformFile.writeToStringEnd;
+import static Functions.AutoRepairShopFunctions.printArrayList;
 
 public abstract class Workshop implements Serializable {
 
     private String name;
-    private ArrayList<TelephoneNumber> telephoneNumbers;
-    private Address address;
-    protected String file;
+    private ArrayList<String> telephoneNumbers;
+    private String address;
     private Date openingDate;
+
+    public Workshop(){
+        telephoneNumbers = new ArrayList<>();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getOpeningDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
+        return dateFormat.format(openingDate);
+    }
 
     public String getName() {
         return name;
     }
 
-    public Workshop(){}
-
-    public Workshop(String name, TelephoneNumber telephoneNumber, Address address) {
-        this.telephoneNumbers = new ArrayList<>();
-        this.telephoneNumbers.add(telephoneNumber);
-        this.address = address;
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setTelephoneNumbers(ArrayList<TelephoneNumber> telephoneNumbers) {
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setTelephoneNumbers(ArrayList<String> telephoneNumbers) {
         this.telephoneNumbers = telephoneNumbers;
     }
 
     public void addTelephoneNumber(String number){
-        if(telephoneNumbers == null){
-            telephoneNumbers = new ArrayList<>();
-        }
-        try {
-            telephoneNumbers.add(new TelephoneNumber(number));
-            writeToStringEnd(number, file, 1);
-        } catch (IllegalArgumentException e){
-            System.out.println("Illegal telephone number " + number);
-        }
+        telephoneNumbers.add(number);
     }
 
     public void setOpeningDate(Date date) {
@@ -54,16 +54,17 @@ public abstract class Workshop implements Serializable {
     }
 
     public abstract void setMasters(ArrayList<Master> masters);
+
     public abstract void addMaster(Master master);
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder data = new StringBuilder();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yy");
-        data.append("Name: ").append(name).append("\n")
-                .append("Address: ").append(address).append("\n")
-                .append("Telephone numbers: ").append(printArrayList(telephoneNumbers)).append("\n")
-                .append("Opening date: ").append((openingDate!=null) ? dateFormat.format(openingDate) : "Opening date hasn't inputted yet").append("\n");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM yyyy");
+        data.append(name).append("\n")
+                .append(printArrayList(telephoneNumbers)).append("\n")
+                .append(address).append("\n")
+                .append((openingDate != null) ? dateFormat.format(openingDate) : "Opening date hasn't inputted yet").append("\n");
         return data.toString();
     }
 }

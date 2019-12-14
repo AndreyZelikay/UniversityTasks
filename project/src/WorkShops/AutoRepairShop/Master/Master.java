@@ -10,7 +10,13 @@ public class Master implements Serializable {
     private String workExperience;
     private String resume;
 
-    public Master(){}
+    public Master(String name){
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public Master(String name, String rank, String workExperience, String resume) {
         this.name = name;
@@ -50,10 +56,7 @@ public class Master implements Serializable {
     @Override
     public String toString(){
         StringBuilder information = new StringBuilder();
-        information.append(name).append(" ")
-                   .append(Objects.requireNonNullElse(rank,"no information")).append(" ");
-        information.append(Objects.requireNonNullElse(workExperience, "No work experience")).append(" ");
-        information.append(Objects.requireNonNullElse(resume, "No resume"));
+        information.append(name).append(" ");
         return information.toString();
     }
 }
