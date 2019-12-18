@@ -1,0 +1,42 @@
+public static Matrix multiplyToRotationMatrix(Matrix matrix, int i, int j){
+        double tg = 2 * matrix.getElement(i, j) / (matrix.getElement(i, i) - matrix.getElement(j, j));
+        double bufferValue = 1 / Math.sqrt(1 + Math.pow(tg,2));
+        Double cos = Math.sqrt((1 + bufferValue) / 2);
+        Double sin = Math.signum(tg)*Math.sqrt((1 - bufferValue) / 2);
+        Matrix result = new Matrix();
+        for(int m = 0; m < matrix.size(); m++){
+            Vector line = new Vector();
+            for(int l = 0; l < matrix.size(); l++){
+                if(m == i && l == i){
+                    line.addCoordinate(Math.pow(cos,2) * matrix.getElement(i, i)
+                            - 2 * sin * cos * matrix.getElement(i, j)
+                            + Math.pow(sin, 2) * matrix.getElement(j, j));
+                }
+                else if(m == j && l == j) {
+                    line.addCoordinate(((Math.pow(sin, 2) * matrix.getElement(i, i))
+                            - (2 * sin * cos * matrix.getElement(i, j)))
+                            + (Math.pow(cos, 2) * matrix.getElement(j, j)));
+                }
+                else if((m == i && l == j) || (m == j && l == i)) {
+                    line.addCoordinate((Math.pow(cos, 2) - Math.pow(sin, 2)) * matrix.getElement(i, j)
+                            + sin * cos * (matrix.getElement(j, j) - matrix.getElement(i, i)));
+                }
+                else if(m == i && l != i && l != j) {
+                    line.addCoordinate(cos * matrix.getElement(i, l)
+                            - sin * matrix.getElement(j, l));
+                }
+                else if(m == j && l != i && l != j) {
+                    line.addCoordinate(sin * matrix.getElement(i, l)
+                            + cos * matrix.getElement(j, l));
+                }
+                else if(m != i && l != j){
+                    line.addCoordinate(matrix.getElement(m, l));
+                }
+                else{
+                    line.addCoordinate(matrix.getElement(l, m));
+                }
+            }
+            result.addLine(line);
+        }
+        return result;
+    }
